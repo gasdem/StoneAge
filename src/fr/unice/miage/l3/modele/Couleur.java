@@ -1,4 +1,4 @@
-package fr.unice.miage.l3.agedepierre.modele.bis;
+package fr.unice.miage.l3.modele;
 
 public enum Couleur {
 	BLEU("Couleur Joueur 1"),

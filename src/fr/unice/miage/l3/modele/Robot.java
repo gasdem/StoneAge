@@ -1,4 +1,4 @@
-package fr.unice.miage.l3.agedepierre.modele.bis;
+package fr.unice.miage.l3.modele;
 
 import java.util.Random;
 

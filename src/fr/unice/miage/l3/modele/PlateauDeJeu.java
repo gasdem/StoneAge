@@ -1,4 +1,4 @@
-package fr.unice.miage.l3.agedepierre.modele.bis;
+package fr.unice.miage.l3.modele;
 
 public class PlateauDeJeu {
 	public final static int ZONE_1_FRABICANT_D_OUTILS = 1;

@@ -66,7 +66,7 @@ public class Robot {
 				if (plateauDeJeu.getNombreDePlaceAuChamp() == 1) {
 					joueur.setNombreDeFigurines(1, Joueur.DIMINUER);;
 					plateauDeJeu.setNombreDePlaceAuChamp(1, PlateauDeJeu.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé 1 figurine au champ.");
+					System.out.println(joueur.getNomJoueur() + " a posé 1 figurine dans le champ.");
 					mauvaiseZoneSelectionnee = false;
 				} else {
 					afficherMsgZoneOccupee(joueur, Zone.CHAMP);

@@ -10,11 +10,33 @@ import fr.unice.miage.l3.modele.Robot;
 public class MoteurDeJeu {
 
 	public static void main(String[] args) {
-		Joueur Amadou = new Joueur("Ahmed", Couleur.BLEU);
+		Joueur Maguette = new Joueur("Maguette", Couleur.BLEU);
 		Joueur Fatou = new Joueur("Fatou", Couleur.ROUGE);
 		ArrayList<Joueur> listeDesJoueurs = new ArrayList<>();
-		listeDesJoueurs.add(Amadou);
+		listeDesJoueurs.add(Maguette);
 		listeDesJoueurs.add(Fatou);
+		
+		System.out.println("\n\n**********Bienvenue dans L'Age De Pierre !***************");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("\nLes Deux joueurs sont Maguette et Fatou.\n");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("***********PHASE1: POSIIONNEMENT DES FIGURINES********************\n");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		PlateauDeJeu plateauDeJeu = new PlateauDeJeu();
 		Robot robot = new Robot(listeDesJoueurs, plateauDeJeu);
 		
@@ -39,7 +61,6 @@ public class MoteurDeJeu {
 
 			while (terminee) {
 
-				for (int j = 0; j < 50; j++) {
 					for (int i = 0; i < robot.getListeDesJoueurs().size(); i++) {
 						robot.placerDesFigurinesSurUneZone(robot.getListeDesJoueurs().get(i),
 								robot.effectuerSelectionAleatoire(1, 10));
@@ -50,8 +71,9 @@ public class MoteurDeJeu {
 							e1.printStackTrace();
 						}
 					}
-					if (j == 50)
-						terminee = false;
+					if (robot.debut == false){
+					terminee=false;
+					System.out.println("\n*************FIN DE POSITIONNEMENT DES FIGURINES************");
 				}
 
 			}

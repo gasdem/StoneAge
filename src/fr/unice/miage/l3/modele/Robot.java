@@ -15,6 +15,8 @@ public class Robot {
 	// Variable permet d effectuer des selection aléatoires
 	private int selectionAleatoire;
 	private boolean mauvaiseZoneSelectionnee = false;
+	
+	public boolean debut = true; 
 
 	public Robot(ArrayList<Joueur> listeDesjoueurs, PlateauDeJeu plateauDeJeu) {
 		this.listeDesJoueurs = listeDesjoueurs;
@@ -47,13 +49,13 @@ public class Robot {
 
 		boolean leJoueurAFini = false;		
 		// On vérifie toujours que le joueur à encore des figurines disponibles
-		if (joueur.getNombreDeFigurines() > 0 || joueur.getZonesOccupees().contains(zoneSelectionnee)) {
+		if (joueur.getNombreDeFigurines() > 0) {
 			switch (zoneSelectionnee) {
 			case Zone.NUM_FRABICANT_D_OUTILS:
 				if (plateauDeJeu.getNombreDePlaceChezLeFrabicantDOutils() == 1) {
 					joueur.setNombreDeFigurines(1, Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceChezLeFrabicantDOutils(1, PlateauDeJeu.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine chez le fabricant d'outil.");
+					System.out.println(joueur.getNomJoueur() + " a posé 1 figurine chez le fabricant d'outil.");
 					mauvaiseZoneSelectionnee = false;
 				} else {
 					System.out.println("Cette place est déjà occupée!");
@@ -66,7 +68,7 @@ public class Robot {
 				if (plateauDeJeu.getNombreDePlaceAuChamp() == 1) {
 					joueur.setNombreDeFigurines(1, Joueur.DIMINUER);;
 					plateauDeJeu.setNombreDePlaceAuChamp(1, PlateauDeJeu.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine au champ.");
+					System.out.println(joueur.getNomJoueur() + " a posé 1 figurine au champ.");
 					mauvaiseZoneSelectionnee = false;
 				} else {
 					afficherMsgZoneOccupee(joueur, Zone.CHAMP);
@@ -77,7 +79,7 @@ public class Robot {
 				if (plateauDeJeu.getNombreDePlaceDansLaHutte() == 2) {
 					joueur.setNombreDeFigurines(2, Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceDansLaHutte(2, Joueur.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé deux figurines dans la hutte.");
+					System.out.println(joueur.getNomJoueur() + " a posé 2 figurines dans la hutte.");
 					mauvaiseZoneSelectionnee = false;
 				} else {
 					afficherMsgZoneOccupee(joueur, Zone.HUTTE);
@@ -92,7 +94,7 @@ public class Robot {
 				effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 				joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 				plateauDeJeu.setNombreDePlaceChezLeFrabicantDOutils(getSelectionAleatoire(), Joueur.DIMINUER);
-				System.out.println(joueur.getNomJoueur() + " a envoyé des figurines à la chasse.");
+				System.out.println(joueur.getNomJoueur() + " a envoyé "+getSelectionAleatoire()+" figurines à la chasse.");
 				mauvaiseZoneSelectionnee = false;
 				break;
 				
@@ -103,7 +105,7 @@ public class Robot {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceDansLaForet(getSelectionAleatoire(),Joueur.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine dans la forêt");
+					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine dans la forêt");
 					mauvaiseZoneSelectionnee = false;
 				}
 				break;
@@ -115,7 +117,7 @@ public class Robot {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceALaRiviere(getSelectionAleatoire(), Joueur.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine à la rivière.");
+					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine à la rivière.");
 				}
 				break;
 				
@@ -126,7 +128,7 @@ public class Robot {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceAlaGlaisiere(getSelectionAleatoire(),Joueur.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine à la glaisière.");
+					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine à la glaisière.");
 				}
 				break;
 				
@@ -137,7 +139,7 @@ public class Robot {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceAlaCarriere(getSelectionAleatoire(), Joueur.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine à la carrière.");
+					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine à la carrière.");
 					mauvaiseZoneSelectionnee = false;
 				}
 				break;
@@ -147,7 +149,7 @@ public class Robot {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceDeTuilesBatiments(getSelectionAleatoire(), PlateauDeJeu.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine sur une tuile bâtiment.");
+					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine sur une tuile bâtiment.");
 					mauvaiseZoneSelectionnee = false;
 				} else {
 					afficherMsgZoneOccupee(joueur, Zone.TUILE_BATIMENT);
@@ -159,7 +161,7 @@ public class Robot {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceDesCartesDeCivilisations(getSelectionAleatoire(), PlateauDeJeu.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine sur une carte de civilisation.");
+					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine sur une carte de civilisation.");
 					mauvaiseZoneSelectionnee = false;
 				} else {
 					afficherMsgZoneOccupee(joueur, Zone.TUILE_BATIMENT);
@@ -170,8 +172,7 @@ public class Robot {
 				break;
 			}
 		} else {
-			System.out.println("Cette place est déjà occupée ou vous n'avez plus de joueur!");
-			mauvaiseZoneSelectionnee = true;
+			debut = false;
 		}
 		return leJoueurAFini;
 	}
@@ -185,7 +186,7 @@ public class Robot {
 	}
 	
 	private void afficherMsgZoneOccupee(Joueur joueur, Zone zoneOccupee){
-		System.out.println("Attention "+zoneOccupee.getNomDeLaZone()+" est déjà occupée!");
+		System.out.println("Attention "+joueur.getNomJoueur()+" "+zoneOccupee.getNomDeLaZone()+" est déjà occupée, recommence ton placement.");
 		joueur.setZonesOccupees(zoneOccupee.getNumeroDeLaZone());
 		mauvaiseZoneSelectionnee = true;
 	}

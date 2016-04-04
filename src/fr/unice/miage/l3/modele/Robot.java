@@ -58,9 +58,7 @@ public class Robot {
 					System.out.println(joueur.getNomJoueur() + " a posé 1 figurine chez le fabricant d'outil.");
 					mauvaiseZoneSelectionnee = false;
 				} else {
-					System.out.println("Cette place est déjà occupée!");
-					joueur.setZonesOccupees(zoneSelectionnee);
-					mauvaiseZoneSelectionnee = true;
+					afficherMsgZoneOccupee(joueur, Zone.FRABICANT_D_OUTILS);
 				}
 				break;
 				
@@ -94,7 +92,7 @@ public class Robot {
 				effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 				joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 				plateauDeJeu.setNombreDePlaceChezLeFrabicantDOutils(getSelectionAleatoire(), Joueur.DIMINUER);
-				System.out.println(joueur.getNomJoueur() + " a envoyé "+getSelectionAleatoire()+" figurines à la chasse.");
+				System.out.println(joueur.getNomJoueur() + " a envoyé "+getSelectionAleatoire()+" figurine(s) à la chasse.");
 				mauvaiseZoneSelectionnee = false;
 				break;
 				
@@ -105,7 +103,7 @@ public class Robot {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceDansLaForet(getSelectionAleatoire(),Joueur.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine dans la forêt");
+					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine(s) dans la forêt");
 					mauvaiseZoneSelectionnee = false;
 				}
 				break;
@@ -117,7 +115,7 @@ public class Robot {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceALaRiviere(getSelectionAleatoire(), Joueur.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine à la rivière.");
+					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine(s) à la rivière.");
 				}
 				break;
 				
@@ -128,7 +126,7 @@ public class Robot {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceAlaGlaisiere(getSelectionAleatoire(),Joueur.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine à la glaisière.");
+					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine(s) à la glaisière.");
 				}
 				break;
 				
@@ -139,7 +137,7 @@ public class Robot {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceAlaCarriere(getSelectionAleatoire(), Joueur.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine à la carrière.");
+					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine(s) à la carrière.");
 					mauvaiseZoneSelectionnee = false;
 				}
 				break;
@@ -149,7 +147,7 @@ public class Robot {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceDeTuilesBatiments(getSelectionAleatoire(), PlateauDeJeu.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine sur une tuile bâtiment.");
+					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine(s) sur une tuile 'bâtiment'.");
 					mauvaiseZoneSelectionnee = false;
 				} else {
 					afficherMsgZoneOccupee(joueur, Zone.TUILE_BATIMENT);
@@ -161,7 +159,7 @@ public class Robot {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
 					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
 					plateauDeJeu.setNombreDePlaceDesCartesDeCivilisations(getSelectionAleatoire(), PlateauDeJeu.DIMINUER);
-					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine sur une carte de civilisation.");
+					System.out.println(joueur.getNomJoueur() + " a posé "+getSelectionAleatoire()+" figurine(s) sur une carte 'civilisation'.");
 					mauvaiseZoneSelectionnee = false;
 				} else {
 					afficherMsgZoneOccupee(joueur, Zone.TUILE_BATIMENT);

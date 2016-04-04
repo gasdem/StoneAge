@@ -1,5 +1,6 @@
 package fr.unice.miage.l3.modele;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import fr.unice.miage.l3.enumration.Zone;
@@ -9,22 +10,30 @@ public class Robot {
 	public final static int PHASE_2_REALISATION_DES_ACTIONS = 2;
 	public final static int PHASE_3_ALIMENTATION_DES_FIGURINES = 3;
 
-	private Joueur[] listeDesJoueurs;
+	private ArrayList<Joueur> listeDesJoueurs;
 	private PlateauDeJeu plateauDeJeu;
 	// Variable permet d effectuer des selection aléatoires
 	private int selectionAleatoire;
 	private boolean mauvaiseZoneSelectionnee = false;
 
-	public Robot(Joueur[] listeDesjoueurs, PlateauDeJeu plateauDeJeu) {
+	public Robot(ArrayList<Joueur> listeDesjoueurs, PlateauDeJeu plateauDeJeu) {
 		this.listeDesJoueurs = listeDesjoueurs;
 		this.plateauDeJeu = plateauDeJeu;
 	}
 	
+	public ArrayList<Joueur> getListeDesJoueurs() {
+		return listeDesJoueurs;
+	}
+
+	public void setListeDesJoueurs(ArrayList<Joueur> listeDesJoueurs) {
+		this.listeDesJoueurs = listeDesJoueurs;
+	}
+
 	// Cette méthode permet au joueur de sélectionner aléatoirement une zone ou 
 	// des figurines.
 	public int effectuerSelectionAleatoire(int min, int max) {
 		Random r = new Random();
-		selectionAleatoire = r.nextInt(max - min) + min;
+		selectionAleatoire = (int) (Math.random() * max)+ min;	
 		return selectionAleatoire;
 	}
 	
@@ -36,8 +45,7 @@ public class Robot {
 	// sur une zone chosie précedemment avec la méthode selectionnerUneZone();
 	public boolean placerDesFigurinesSurUneZone(Joueur joueur, int zoneSelectionnee) {
 
-		boolean leJoueurAFini = false;
-		
+		boolean leJoueurAFini = false;		
 		// On vérifie toujours que le joueur à encore des figurines disponibles
 		if (joueur.getNombreDeFigurines() > 0 || joueur.getZonesOccupees().contains(zoneSelectionnee)) {
 			switch (zoneSelectionnee) {

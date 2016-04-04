@@ -2,7 +2,7 @@ package fr.unice.miage.l3.main;
 
 import java.util.ArrayList;
 
-import fr.unice.miage.l3.modele.Couleur;
+import fr.unice.miage.l3.enumration.Couleur;
 import fr.unice.miage.l3.modele.Joueur;
 import fr.unice.miage.l3.modele.PlateauDeJeu;
 import fr.unice.miage.l3.modele.Robot;
@@ -16,21 +16,21 @@ public class MoteurDeJeu {
 		listeDesJoueurs.add(Maguette);
 		listeDesJoueurs.add(Fatou);
 		
-		System.out.println("\n\n**********Bienvenue dans L'Age De Pierre !***************");
+		System.out.println("\n**********Bienvenue dans L'Age De Pierre !*********************");
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println("\nLes Deux joueurs sont Maguette et Fatou.\n");
+		System.out.println("\n+++++++++Les Deux adversaires sont Maguette et Fatou.++++++++++\n");
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println("***********PHASE1: POSIIONNEMENT DES FIGURINES********************\n");
+		System.out.println("**********PHASE1: POSIIONNEMENT DES FIGURINES********************\n");
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e1) {
@@ -73,7 +73,8 @@ public class MoteurDeJeu {
 					}
 					if (robot.debut == false){
 					terminee=false;
-					System.out.println("\n*************FIN DE POSITIONNEMENT DES FIGURINES************");
+					System.out.println("\n**********FIN DE POSITIONNEMENT DES FIGURINES******************\n");
+					System.out.println("\n**********PHASE 2: REALISATION DES ACTIONS*********************");
 				}
 
 			}

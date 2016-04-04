@@ -12,6 +12,7 @@ public enum Zone {
 	TUILE_BATIMENT (9, "La tuile bâtiment"),
 	CARTE_CIVILISATION (10, "La carte civilisation");
 	
+	// C'est unpeu repétitif mais nous allons corrigé cette partie
 	public final static int NUM_FRABICANT_D_OUTILS = 1;
 	public final static int NUM_CHAMP = 2;
 	public final static int NUM_HUTTE = 3;

@@ -2,6 +2,8 @@ package fr.unice.miage.l3.modele;
 
 import java.util.ArrayList;
 
+import fr.unice.miage.l3.enumration.Couleur;
+
 public class Joueur {
 	
 	public final static int REINITIALISER = 0;

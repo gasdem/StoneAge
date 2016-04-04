@@ -1,4 +1,4 @@
-package fr.unice.miage.l3.modele;
+package fr.unice.miage.l3.enumration;
 
 public enum Couleur {
 	BLEU("Couleur Joueur 1"),

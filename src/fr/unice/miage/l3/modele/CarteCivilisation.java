@@ -1,5 +1,7 @@
 package fr.unice.miage.l3.modele;
 
+import fr.unice.miage.l3.enumration.Couleur;
+
 public class CarteCivilisation {
 	private int nbreDePoint;
 	private int ressourcesDeLacarte;

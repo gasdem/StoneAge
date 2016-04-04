@@ -4,8 +4,6 @@ public class CarteCivilisation {
 	private int nbreDePoint;
 	private int ressourcesDeLacarte;
 	private Couleur couleurDeFond;
-	
-	
 
 	public CarteCivilisation() {
 		this.nbreDePoint = 0;

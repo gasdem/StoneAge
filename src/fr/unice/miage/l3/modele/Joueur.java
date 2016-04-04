@@ -1,9 +1,13 @@
 package fr.unice.miage.l3.modele;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Joueur {
+	
+	public final static int REINITIALISER = 0;
+	public final static int AUGMENTER = 1;
+	public final static int DIMINUER = 2;
+	
 	private String nomJoueur;
 	private Couleur couleurFigurine;
 	private int scoreJoueur;
@@ -15,10 +19,10 @@ public class Joueur {
 	private int stockPierre;
 	private int stockOr;
 	private int nombreOutils;
-	private CarteBatiment nombreDeCarteBatiment;
+	private TuileBatiment nombreDeTuilesBatiments;
 	private CarteCivilisation nombreDeCarteCivilisation;
-	private boolean passerLaMain;
-	private static ArrayList<Integer> placeInterdite;
+	private static ArrayList<Integer> zonesOccupees;
+	
 
 	public Joueur(String nomJoueur, Couleur couleurFigurine) {
 		this.nomJoueur = nomJoueur;
@@ -31,22 +35,12 @@ public class Joueur {
 		this.stockArgile = 0;
 		this.stockPierre = 0;
 		this.stockOr = 0;
-		this.nombreDeCarteBatiment = new CarteBatiment();
+		this.nombreDeTuilesBatiments = new TuileBatiment();
 		this.nombreOutils = 0;
 		this.nombreDeCarteCivilisation = new CarteCivilisation();
-		this.placeInterdite = new ArrayList<>();
+		this.zonesOccupees = new ArrayList<>();
 	}
-	
-	
-	// La fin de la troisième partie on réinitialise les differents champs 
-	// Du plateau de Jeu
-
-	public void nourrirFigurine() {
-		// On déduit de la réserve de nourriture le nombre
-		// de figurine que le joueur à nourrit
-		setReserveNourriture(-getNombreDeFigurines());
-	}
-
+		
 	public Couleur getCouleurFigurine() {
 		return couleurFigurine;
 	}
@@ -66,27 +60,20 @@ public class Joueur {
 	public int getScoreJoueur() {
 		return scoreJoueur;
 	}
-
+	
+	// Todo : à modifier
 	public void setScoreJoueur(int scoreJoueur) {
 		this.scoreJoueur = scoreJoueur;
 	}
 
-	public CarteBatiment getNombreDeCarteBatiment() {
-		return nombreDeCarteBatiment;
+	public TuileBatiment getNombreDeTuilesBatiments() {
+		return nombreDeTuilesBatiments;
 	}
 
-	public void setNombreDeCarteBatiment(CarteBatiment nombreDeCarteBatiment) {
-		this.nombreDeCarteBatiment = nombreDeCarteBatiment;
+	public void setNombreDeTuilesBatiments(TuileBatiment nombreDeTuilesBatiments, int action) {
+		this.nombreDeTuilesBatiments = nombreDeTuilesBatiments;
 	}
-
-	public int getNombreOutils() {
-		return nombreOutils;
-	}
-
-	public void setNombreOutils(int nombreOutils) {
-		this.nombreOutils = nombreOutils;
-	}
-
+	
 	public CarteCivilisation getNombreCarteCivilisation() {
 		return nombreDeCarteCivilisation;
 	}
@@ -95,73 +82,161 @@ public class Joueur {
 		this.nombreDeCarteCivilisation = nombreDeCarteCivilisation;
 	}
 
+	public int getNombreOutils() {
+		return nombreOutils;
+	}
+
+	public void setNombreOutils(int nombreOutils, int action) {
+		switch (action) {
+		case REINITIALISER:
+			this.nombreOutils = nombreOutils;
+			break;
+		case AUGMENTER:
+			this.nombreOutils = this.nombreOutils + nombreOutils;
+			break;
+		case DIMINUER:
+			this.nombreOutils = this.nombreOutils - nombreOutils;
+			break;
+		}
+	}
+
 	public int getNombreDeFigurines() {
 		return nombreDeFigurines;
 	}
 
-	public void setNombreDeFigurines(int nombreDeFigurines) {
-		this.nombreDeFigurines = nombreDeFigurines;
+	public void setNombreDeFigurines(int nombreDeFigurines, int action) {
+		switch (action) {
+		case REINITIALISER:
+			this.nombreDeFigurines = nombreDeFigurines;
+			break;
+		case AUGMENTER:
+			this.nombreDeFigurines = this.nombreDeFigurines + nombreDeFigurines;
+			break;
+		case DIMINUER:
+			this.nombreDeFigurines = this.nombreDeFigurines - nombreDeFigurines;
+			break;
+		}
 	}
-
+	
 	public int getReserveNourriture() {
 		return reserveNourriture;
 	}
 
-	public void setReserveNourriture(int reserveNourriture) {
-		this.reserveNourriture = reserveNourriture;
+	public void setReserveNourriture(int reserveNourriture, int action) {
+		switch (action) {
+		case REINITIALISER:
+			this.reserveNourriture = reserveNourriture;
+			break;
+		case AUGMENTER:
+			this.reserveNourriture = this.reserveNourriture + reserveNourriture;
+			break;
+		case DIMINUER:
+			this.reserveNourriture = this.reserveNourriture - reserveNourriture;
+			break;
+		}
 	}
 
 	public int getNiveauAgriculture() {
 		return niveauAgriculture;
 	}
 
-	public void setNiveauAgriculture(int niveauAgriculture) {
-		this.niveauAgriculture = niveauAgriculture;
+	public void setNiveauAgriculture(int niveauAgriculture, int action) {
+		switch (action) {
+		case REINITIALISER:
+			this.niveauAgriculture = niveauAgriculture;
+			break;
+		case AUGMENTER:
+			this.niveauAgriculture = this.niveauAgriculture + niveauAgriculture;
+			break;
+		case DIMINUER:
+			this.niveauAgriculture = this.niveauAgriculture - niveauAgriculture;
+			break;
+		}
 	}
 
 	public int getStockBois() {
 		return stockBois;
 	}
 
-	public void setStockBois(int stockBois) {
-		this.stockBois = stockBois;
+	public void setStockBois(int stockBois, int action) {
+		switch (action) {
+		case REINITIALISER:
+			this.stockBois = stockBois;
+			break;
+		case AUGMENTER:
+			this.stockBois = this.stockBois + stockBois;
+			break;
+		case DIMINUER:
+			this.stockBois = this.stockBois - stockBois;
+			break;
+		}
 	}
 
 	public int getStockArgile() {
 		return stockArgile;
 	}
-
-	public void setStockArgile(int stockArgile) {
-		this.stockArgile = stockArgile;
+	
+	public void setStockArgile(int stockArgile, int action) {
+		switch (action) {
+		case REINITIALISER:
+			this.stockArgile = stockArgile;
+			break;
+		case AUGMENTER:
+			this.stockArgile = this.stockArgile + stockArgile;
+			break;
+		case DIMINUER:
+			this.stockArgile = this.stockArgile - stockArgile;
+			break;
+		}
 	}
 
 	public int getStockPierre() {
 		return stockPierre;
 	}
-
-	public void setStockPierre(int stockPierre) {
-		this.stockPierre = stockPierre;
+		
+	public void setStockPierre(int stockPierre, int action) {
+		switch (action) {
+		case REINITIALISER:
+			this.stockPierre = stockPierre;
+			break;
+		case AUGMENTER:
+			this.stockPierre = this.stockPierre + stockPierre;
+			break;
+		case DIMINUER:
+			this.stockPierre = this.stockPierre - stockPierre;
+			break;
+		}
 	}
 
 	public int getStockOr() {
 		return stockOr;
 	}
-
-	public void setStockOr(int stockOr) {
-		this.stockOr = stockOr;
+	
+	public void setStockOr(int stockOr, int action) {
+		switch (action) {
+		case REINITIALISER:
+			this.stockOr = stockOr;
+			break;
+		case AUGMENTER:
+			this.stockOr = this.stockOr + stockOr;
+			break;
+		case DIMINUER:
+			this.stockOr = this.stockOr - stockOr;
+			break;
+		}
 	}
 	
+	public ArrayList<Integer> getZonesOccupees() {
+		return zonesOccupees;
+	}
+
+	public void setZonesOccupees(int zonesOccupees) {
+		this.zonesOccupees.add(zonesOccupees);
+	}
 	
-
-	public ArrayList<Integer> getPlaceInterdite() {
-		return placeInterdite;
+	public void viderZonesOccupees(){
+		this.zonesOccupees.clear();
 	}
-
-
-	public void setPlaceInterdite(int placeInterdite) {
-		this.placeInterdite.add(placeInterdite);
-	}
-
 
 	@Override
 	public String toString() {

@@ -2,6 +2,8 @@ package fr.unice.miage.l3.modele;
 
 import java.util.Random;
 
+import fr.unice.miage.l3.enumration.Zone;
+
 public class Robot {
 	public final static int PHASE_1_POSE_DES_FIGURINES = 1;
 	public final static int PHASE_2_REALISATION_DES_ACTIONS = 2;
@@ -11,6 +13,7 @@ public class Robot {
 	private PlateauDeJeu plateauDeJeu;
 	// Variable permet d effectuer des selection aléatoires
 	private int selectionAleatoire;
+	private boolean mauvaiseZoneSelectionnee = false;
 
 	public Robot(Joueur[] listeDesjoueurs, PlateauDeJeu plateauDeJeu) {
 		this.listeDesJoueurs = listeDesjoueurs;
@@ -34,116 +37,124 @@ public class Robot {
 	public boolean placerDesFigurinesSurUneZone(Joueur joueur, int zoneSelectionnee) {
 
 		boolean leJoueurAFini = false;
-
+		
 		// On vérifie toujours que le joueur à encore des figurines disponibles
-		if (joueur.getNombreDeFigurines() > 0 || joueur.getPlaceInterdite().contains(zoneSelectionnee)) {
+		if (joueur.getNombreDeFigurines() > 0 || joueur.getZonesOccupees().contains(zoneSelectionnee)) {
 			switch (zoneSelectionnee) {
-			case PlateauDeJeu.ZONE_1_FRABICANT_D_OUTILS:
+			case Zone.NUM_FRABICANT_D_OUTILS:
 				if (plateauDeJeu.getNombreDePlaceChezLeFrabicantDOutils() == 1) {
-					joueur.setNombreDeFigurines(-1);
-					plateauDeJeu.setNombreDePlaceChezLeFrabicantDOutils(-1);
+					joueur.setNombreDeFigurines(1, Joueur.DIMINUER);
+					plateauDeJeu.setNombreDePlaceChezLeFrabicantDOutils(1, PlateauDeJeu.DIMINUER);
 					System.out.println(joueur.getNomJoueur() + " a posé une figurine chez le fabricant d'outil.");
+					mauvaiseZoneSelectionnee = false;
 				} else {
 					System.out.println("Cette place est déjà occupée!");
-					joueur.setPlaceInterdite(zoneSelectionnee);
+					joueur.setZonesOccupees(zoneSelectionnee);
+					mauvaiseZoneSelectionnee = true;
 				}
 				break;
 				
-			case PlateauDeJeu.ZONE_2_CHAMP:
+			case Zone.NUM_CHAMP:
 				if (plateauDeJeu.getNombreDePlaceAuChamp() == 1) {
-					joueur.setNombreDeFigurines(-1);
-					plateauDeJeu.setNombreDePlaceAuChamp(-1);
+					joueur.setNombreDeFigurines(1, Joueur.DIMINUER);;
+					plateauDeJeu.setNombreDePlaceAuChamp(1, PlateauDeJeu.DIMINUER);
 					System.out.println(joueur.getNomJoueur() + " a posé une figurine au champ.");
+					mauvaiseZoneSelectionnee = false;
 				} else {
-					System.out.println("Cette place est déjà occupée!");
-					joueur.setPlaceInterdite(zoneSelectionnee);
+					afficherMsgZoneOccupee(joueur, Zone.CHAMP);
 				}
 				break;
 				
-			case PlateauDeJeu.ZONE_3_HUTTE:
+			case Zone.NUM_HUTTE:
 				if (plateauDeJeu.getNombreDePlaceDansLaHutte() == 2) {
-					joueur.setNombreDeFigurines(-2);
-					plateauDeJeu.setNombreDePlaceDansLaHutte(-2);
+					joueur.setNombreDeFigurines(2, Joueur.DIMINUER);
+					plateauDeJeu.setNombreDePlaceDansLaHutte(2, Joueur.DIMINUER);
 					System.out.println(joueur.getNomJoueur() + " a posé deux figurines dans la hutte.");
+					mauvaiseZoneSelectionnee = false;
 				} else {
-					System.out.println("Cette place est déjà occupée!");
-					joueur.setPlaceInterdite(zoneSelectionnee);
+					afficherMsgZoneOccupee(joueur, Zone.HUTTE);
 				}
 				break;
 				
-			case PlateauDeJeu.ZONE_4_DE_CHASSE:
+			case Zone.NUM_CHASSE:
 				// Dans ce cas on ne vérfie pas le nombre de place car c'est illimité
 				
 				// On effectue une sélection alétoire des nombres de figurines
 				// qu'on mettra dans la forêt
 				effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
-				joueur.setNombreDeFigurines(getSelectionAleatoire());
-				plateauDeJeu.setNombreDePlaceChezLeFrabicantDOutils(-1);
-				System.out.println(joueur.getNomJoueur() + " a envoyé des figurines à la chasse");
+				joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
+				plateauDeJeu.setNombreDePlaceChezLeFrabicantDOutils(getSelectionAleatoire(), Joueur.DIMINUER);
+				System.out.println(joueur.getNomJoueur() + " a envoyé des figurines à la chasse.");
+				mauvaiseZoneSelectionnee = false;
 				break;
 				
-			case PlateauDeJeu.ZONE_5_FORET:
+			case Zone.NUM_FORET:
 				if (plateauDeJeu.getNombreDePlaceDansLaForet() != 7) {
-					System.out.println("Cette place est déjà occupée!");
-					joueur.setPlaceInterdite(zoneSelectionnee);
+					afficherMsgZoneOccupee(joueur, Zone.FORET);
 				} else {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
-					joueur.setNombreDeFigurines(getSelectionAleatoire());
-					plateauDeJeu.setNombreDePlaceDansLaForet(getSelectionAleatoire());
-					System.out.println(joueur.getNomJoueur() + " a posé dans la forêt");
+					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
+					plateauDeJeu.setNombreDePlaceDansLaForet(getSelectionAleatoire(),Joueur.DIMINUER);
+					System.out.println(joueur.getNomJoueur() + " a posé une figurine dans la forêt");
+					mauvaiseZoneSelectionnee = false;
 				}
 				break;
-			case PlateauDeJeu.ZONE_6_RIVIERE:
+				
+			case Zone.NUM_RIVIERE:
 				if (plateauDeJeu.getNombreDePlaceALaRiviere() != 7) {
-					System.out.println("Cette place est déjà occupée!");
-					joueur.setPlaceInterdite(zoneSelectionnee);
+					afficherMsgZoneOccupee(joueur, Zone.RIVIERE);
 				} else {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
-					joueur.setNombreDeFigurines(getSelectionAleatoire());
-					plateauDeJeu.setNombreDePlaceALaRiviere(getSelectionAleatoire());
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine chez le fabricant d'outil.");
+					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
+					plateauDeJeu.setNombreDePlaceALaRiviere(getSelectionAleatoire(), Joueur.DIMINUER);
+					System.out.println(joueur.getNomJoueur() + " a posé une figurine à la rivière.");
 				}
 				break;
-			case PlateauDeJeu.ZONE_7_GLASIERE:
-				if (plateauDeJeu.getNombreDePlaceDansLaForet() != 7) {
-					System.out.println("Cette place est déjà occupée!");
-					joueur.setPlaceInterdite(zoneSelectionnee);
+				
+			case Zone.NUM_GLASIERE:
+				if (plateauDeJeu.getNombreDePlaceAlaGlaisiere() != 7) {
+					afficherMsgZoneOccupee(joueur, Zone.GLAISIERE);
 				} else {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
-					joueur.setNombreDeFigurines(getSelectionAleatoire());
-					plateauDeJeu.setNombreDePlaceDansLaForet(getSelectionAleatoire());
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine chez le fabricant d'outil.");
+					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
+					plateauDeJeu.setNombreDePlaceAlaGlaisiere(getSelectionAleatoire(),Joueur.DIMINUER);
+					System.out.println(joueur.getNomJoueur() + " a posé une figurine à la glaisière.");
 				}
 				break;
-			case PlateauDeJeu.ZONE_8_CARRIERE:
-				if (plateauDeJeu.getNombreDePlaceDansLaForet() != 7) {
-					System.out.println("Cette place est déjà occupée!");
-					joueur.setPlaceInterdite(zoneSelectionnee);
+				
+			case Zone.NUM_CARRIERE:
+				if (plateauDeJeu.getNombreDePlaceAlaCarriere() != 7) {
+					afficherMsgZoneOccupee(joueur, Zone.CARRIERE);
 				} else {
 					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
-					joueur.setNombreDeFigurines(getSelectionAleatoire());
-					plateauDeJeu.setNombreDePlaceDansLaForet(getSelectionAleatoire());
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine chez le fabricant d'outil.");
+					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
+					plateauDeJeu.setNombreDePlaceAlaCarriere(getSelectionAleatoire(), Joueur.DIMINUER);
+					System.out.println(joueur.getNomJoueur() + " a posé une figurine à la carrière.");
+					mauvaiseZoneSelectionnee = false;
 				}
 				break;
-			case PlateauDeJeu.ZONE_9_CARTE_BATIMENTS:
-				if (plateauDeJeu.getNombreDePlaceChezLeFrabicantDOutils() == 1) {
-					joueur.setNombreDeFigurines(-1);
-					plateauDeJeu.setNombreDePlaceChezLeFrabicantDOutils(-1);
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine chez le fabricant d'outil.");
+				
+			case Zone.NUM_TUILE_BATIMENT:
+				if (plateauDeJeu.getNombreDePlaceDeTuilesBatiments() == 2) {
+					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
+					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
+					plateauDeJeu.setNombreDePlaceDeTuilesBatiments(getSelectionAleatoire(), PlateauDeJeu.DIMINUER);
+					System.out.println(joueur.getNomJoueur() + " a posé une figurine sur une tuile bâtiment.");
+					mauvaiseZoneSelectionnee = false;
 				} else {
-					System.out.println("Cette place est déjà occupée!");
-					joueur.setPlaceInterdite(zoneSelectionnee);
+					afficherMsgZoneOccupee(joueur, Zone.TUILE_BATIMENT);
 				}
 				break;
-			case PlateauDeJeu.ZONE_10_CARTES_DE_CIVILISATIONS:
-				if (plateauDeJeu.getNombreDePlaceChezLeFrabicantDOutils() == 1) {
-					joueur.setNombreDeFigurines(-1);
-					plateauDeJeu.setNombreDePlaceChezLeFrabicantDOutils(-1);
-					System.out.println(joueur.getNomJoueur() + " a posé une figurine chez le fabricant d'outil.");
+				
+			case Zone.NUM_CARTE_DE_CIVILISATION:
+				if (plateauDeJeu.getNombreDePlaceDesCartesDeCivilisations() == 4) {
+					effectuerSelectionAleatoire(1, joueur.getNombreDeFigurines());
+					joueur.setNombreDeFigurines(getSelectionAleatoire(), Joueur.DIMINUER);
+					plateauDeJeu.setNombreDePlaceDesCartesDeCivilisations(getSelectionAleatoire(), PlateauDeJeu.DIMINUER);
+					System.out.println(joueur.getNomJoueur() + " a posé une figurine sur une carte de civilisation.");
+					mauvaiseZoneSelectionnee = false;
 				} else {
-					System.out.println("Cette place est déjà occupée!");
-					joueur.setPlaceInterdite(zoneSelectionnee);
+					afficherMsgZoneOccupee(joueur, Zone.TUILE_BATIMENT);
 				}
 				break;
 
@@ -152,7 +163,7 @@ public class Robot {
 			}
 		} else {
 			System.out.println("Cette place est déjà occupée ou vous n'avez plus de joueur!");
-
+			mauvaiseZoneSelectionnee = true;
 		}
 		return leJoueurAFini;
 	}
@@ -163,5 +174,11 @@ public class Robot {
 
 	public void calculerScore() {
 
+	}
+	
+	private void afficherMsgZoneOccupee(Joueur joueur, Zone zoneOccupee){
+		System.out.println("Attention "+zoneOccupee.getNomDeLaZone()+" est déjà occupée!");
+		joueur.setZonesOccupees(zoneOccupee.getNumeroDeLaZone());
+		mauvaiseZoneSelectionnee = true;
 	}
 }

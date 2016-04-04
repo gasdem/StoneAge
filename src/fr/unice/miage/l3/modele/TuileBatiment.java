@@ -1,15 +1,15 @@
 package fr.unice.miage.l3.modele;
 
-public class CarteBatiment {
+public class TuileBatiment {
 	private int nbreDePoint;
 	private int ressourcesDeLacarte;
 	
-	public CarteBatiment() {
+	public TuileBatiment() {
 		this.nbreDePoint = 0;
 		this.ressourcesDeLacarte = 0;
 	}
 	
-	public CarteBatiment(int nbreDePoint, int ressourcesDeLacarte) {
+	public TuileBatiment(int nbreDePoint, int ressourcesDeLacarte) {
 		super();
 		this.nbreDePoint = nbreDePoint;
 		this.ressourcesDeLacarte = ressourcesDeLacarte;

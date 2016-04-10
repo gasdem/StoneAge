@@ -4,14 +4,16 @@ import java.util.ArrayList;
 
 import fr.unice.miage.l3.enumration.Couleur;
 import fr.unice.miage.l3.modele.Joueur;
+import fr.unice.miage.l3.modele.JoueurFaible;
+import fr.unice.miage.l3.modele.JoueurFort;
 import fr.unice.miage.l3.modele.PlateauDeJeu;
 import fr.unice.miage.l3.modele.Robot;
 
 public class MoteurDeJeu {
 
 	public static void main(String[] args) {
-		Joueur Maguette = new Joueur("Maguette", Couleur.BLEU);
-		Joueur Fatou = new Joueur("Fatou", Couleur.ROUGE);
+		JoueurFaible Maguette = new JoueurFaible("Maguette", Couleur.BLEU);
+		JoueurFort Fatou = new JoueurFort("Fatou", Couleur.ROUGE);
 		ArrayList<Joueur> listeDesJoueurs = new ArrayList<>();
 		listeDesJoueurs.add(Maguette);
 		listeDesJoueurs.add(Fatou);
@@ -48,6 +50,9 @@ public class MoteurDeJeu {
 	static class Moteur implements Runnable {
 
 		private Robot robot;
+		private int nombreMinimumDeZones = 1;
+		private int nombreMaximumDeZones = 10;
+		
 
 		public Moteur(Robot robot) {
 			this.robot = robot;
@@ -56,14 +61,12 @@ public class MoteurDeJeu {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-
 			boolean terminee = true;
-
 			while (terminee) {
 
 					for (int i = 0; i < robot.getListeDesJoueurs().size(); i++) {
 						robot.placerDesFigurinesSurUneZone(robot.getListeDesJoueurs().get(i),
-								robot.effectuerSelectionAleatoire(1, 10));
+								robot.effectuerSelectionAleatoire(nombreMinimumDeZones, nombreMaximumDeZones));
 						try {
 							Thread.sleep(3000);
 						} catch (InterruptedException e1) {
@@ -71,7 +74,8 @@ public class MoteurDeJeu {
 							e1.printStackTrace();
 						}
 					}
-					if (robot.debut == false){
+					
+					if (robot.getPhaseDeJeu() == Robot.PHASE_2_REALISATION_DES_ACTIONS){
 					terminee=false;
 					System.out.println("\n**********FIN DE POSITIONNEMENT DES FIGURINES******************\n");
 					System.out.println("\n**********PHASE 2: REALISATION DES ACTIONS*********************");

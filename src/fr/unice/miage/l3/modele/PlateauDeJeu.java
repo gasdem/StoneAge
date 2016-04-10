@@ -43,6 +43,19 @@ public class PlateauDeJeu {
 		// qui vaut 20 pour deux joueurs
 		this.nombreDePlaceALaChasse = 20;
 	}
+	
+	public void reinitialiserLeNombreDePlaceDesZones(){
+		nombreDePlaceChezLeFrabicantDOutils = 1;
+		nombreDePlaceAuChamp = 1;
+		nombreDePlaceDansLaHutte = 2;
+		nombreDePlaceDansLaForet = 7;
+		nombreDePlaceALaRiviere = 7;
+		nombreDePlaceAlaGlaisiere = 7;
+		nombreDePlaceAlaCarriere = 7;
+		nombreDePlaceDeTuilesBatiments = 2;
+		nombreDePlaceDesCartesDeCivilisations = 4;
+		nombreDePlaceALaChasse = 20;
+	}
 
 	public int getNombreDePlaceChezLeFrabicantDOutils() {
 		return nombreDePlaceChezLeFrabicantDOutils;

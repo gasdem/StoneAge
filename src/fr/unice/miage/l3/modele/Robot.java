@@ -9,20 +9,31 @@ public class Robot {
 	public final static int PHASE_1_POSE_DES_FIGURINES = 1;
 	public final static int PHASE_2_REALISATION_DES_ACTIONS = 2;
 	public final static int PHASE_3_ALIMENTATION_DES_FIGURINES = 3;
+	
+	private int phaseDeJeu = PHASE_1_POSE_DES_FIGURINES;
 
 	private ArrayList<Joueur> listeDesJoueurs;
 	private PlateauDeJeu plateauDeJeu;
-	// Variable permet d effectuer des selection aléatoires
+	// Variable permet d effectuer des selections aléatoires
 	private int selectionAleatoire;
 	private boolean mauvaiseZoneSelectionnee = false;
+		
+	public boolean realisationDesActions = false;
 	
-	public boolean debut = true; 
-
 	public Robot(ArrayList<Joueur> listeDesjoueurs, PlateauDeJeu plateauDeJeu) {
 		this.listeDesJoueurs = listeDesjoueurs;
 		this.plateauDeJeu = plateauDeJeu;
 	}
 	
+	
+	public int getPhaseDeJeu() {
+		return phaseDeJeu;
+	}
+
+	public void setPhaseDeJeu(int phaseDeJeu) {
+		this.phaseDeJeu = phaseDeJeu;
+	}
+
 	public ArrayList<Joueur> getListeDesJoueurs() {
 		return listeDesJoueurs;
 	}
@@ -45,8 +56,7 @@ public class Robot {
 
 	// Cette méthode permet au joueur de placer une ou plusieurs figurines
 	// sur une zone chosie précedemment avec la méthode selectionnerUneZone();
-	public boolean placerDesFigurinesSurUneZone(Joueur joueur, int zoneSelectionnee) {
-
+	public void placerDesFigurinesSurUneZone(Joueur joueur, int zoneSelectionnee) {
 		boolean leJoueurAFini = false;		
 		// On vérifie toujours que le joueur à encore des figurines disponibles
 		if (joueur.getNombreDeFigurines() > 0) {
@@ -170,10 +180,11 @@ public class Robot {
 				break;
 			}
 		} else {
-			debut = false;
+			phaseDeJeu = PHASE_2_REALISATION_DES_ACTIONS;
 		}
-		return leJoueurAFini;
 	}
+	
+	
 
 	public void changerDePahse() {
 
@@ -181,6 +192,18 @@ public class Robot {
 
 	public void calculerScore() {
 
+	}
+	
+	private int recupererLesFigurinesDeLaZoneDeJeu(){
+		return 1;
+	}
+	
+	private void augmenterLeScore(){
+		
+	}
+	
+	private void reduireLeScore(){
+		
 	}
 	
 	private void afficherMsgZoneOccupee(Joueur joueur, Zone zoneOccupee){

@@ -25,7 +25,6 @@ public class Joueur {
 	private CarteCivilisation nombreDeCarteCivilisation;
 	private static ArrayList<Integer> zonesOccupees;
 	
-
 	public Joueur(String nomJoueur, Couleur couleurFigurine) {
 		this.nomJoueur = nomJoueur;
 		this.couleurFigurine = couleurFigurine;
